@@ -6,4 +6,8 @@
     <string name="btn_done">Готово</string>
     <string name="btn_delete">Удалить</string>
     <string name="edit_tag">Редактирование тега</string>
+    <string name="create_note">Создание заметки</string>
+    <string name="edit_note">Редактирование заметки</string>
+    <string name="select_tag">Выберите теги</string>
+    <string name="btn_select_tags">Теги</string>
 </resources>

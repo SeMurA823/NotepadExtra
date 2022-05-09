@@ -1,4 +1,4 @@
-package com.example.notepadextra.utils
+package com.example.notepadextra.navigationutils
 
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem

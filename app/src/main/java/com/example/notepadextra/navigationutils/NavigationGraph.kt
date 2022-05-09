@@ -1,7 +1,5 @@
-package com.example.notepadextra.utils
+package com.example.notepadextra.navigationutils
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost

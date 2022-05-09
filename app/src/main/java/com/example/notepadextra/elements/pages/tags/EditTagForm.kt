@@ -18,12 +18,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.notepadextra.R
+import com.example.notepadextra.di.ServiceLocator
+import com.example.notepadextra.entities.TagEntity
 
 @Composable
-fun EditTagForm(value:String, onClose: ()->Unit) {
+fun EditTagForm(oldValue: TagEntity, onClose: () -> Unit) {
 
-    var tag by remember {
-        mutableStateOf(TextFieldValue(value))
+    var editableTag by remember {
+        mutableStateOf(TextFieldValue(oldValue.name))
     }
 
     Column(
@@ -33,7 +35,7 @@ fun EditTagForm(value:String, onClose: ()->Unit) {
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colors.background)
             .padding(5.dp)
-        ) {
+    ) {
         Text(
             text = stringResource(id = R.string.edit_tag),
             fontSize = 20.sp,
@@ -42,16 +44,24 @@ fun EditTagForm(value:String, onClose: ()->Unit) {
             modifier = Modifier.padding(5.dp),
         )
         OutlinedTextField(
-            value = tag,
-            onValueChange = {tag = it},
-            label = { Text(text = "Название", color = MaterialTheme.colors.secondary)},
-            placeholder = { Text(text = "", color = MaterialTheme.colors.secondary)},
+            value = editableTag,
+            onValueChange = { editableTag = it },
+            label = { Text(text = "Название", color = MaterialTheme.colors.secondary) },
+            placeholder = { Text(text = "", color = MaterialTheme.colors.secondary) },
             modifier = Modifier.padding(5.dp),
-            textStyle = TextStyle(color = MaterialTheme.colors.secondary, fontWeight = FontWeight.Medium)
+            textStyle = TextStyle(
+                color = MaterialTheme.colors.secondary,
+                fontWeight = FontWeight.Medium
+            )
         )
         Row() {
             Button(
-                onClick = { onClose() },
+                onClick = {
+                    ServiceLocator.getInstance()
+                        .tagDAO()
+                        .delete(oldValue)
+                    onClose()
+                },
                 modifier = Modifier.padding(5.dp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = MaterialTheme.colors.error
@@ -60,7 +70,12 @@ fun EditTagForm(value:String, onClose: ()->Unit) {
                 Text(text = stringResource(id = R.string.btn_delete))
             }
             Button(
-                onClick = { onClose() },
+                onClick = {
+                    ServiceLocator.getInstance()
+                        .tagDAO()
+                        .update(TagEntity(oldValue.uuid, editableTag.text))
+                    onClose()
+                },
                 modifier = Modifier.padding(5.dp),
             ) {
                 Text(text = stringResource(id = R.string.btn_done))

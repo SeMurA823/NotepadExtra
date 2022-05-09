@@ -4,19 +4,27 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
+import com.example.notepadextra.di.ServiceLocator
+import com.example.notepadextra.navigationutils.NavigationGraph
+import com.example.notepadextra.navigationutils.NoteBottomNavigation
 import com.example.notepadextra.ui.theme.NotepadExtraTheme
-import com.example.notepadextra.utils.NavigationGraph
-import com.example.notepadextra.utils.NoteBottomNavigation
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.android.material.datepicker.MaterialDatePicker
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ServiceLocator.init(this)
+
         setContent {
 
             var navController = rememberNavController()
@@ -43,4 +51,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }

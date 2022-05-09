@@ -1,4 +1,4 @@
-package com.example.notepadextra.utils
+package com.example.notepadextra.navigationutils
 
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons

@@ -19,24 +19,10 @@ import com.example.notepadextra.entities.TagEntity
 
 @Composable
 fun ListTags(tagEntities: Set<TagEntity>) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp, 5.dp)
-    ) {
-        tagEntities.forEach {
-            Surface(modifier = Modifier.padding(5.dp), color = Color.Transparent) {
-                Surface(modifier = Modifier.clip(shape = RoundedCornerShape(50)), color = Color.Transparent) {
-                    Text(
-                        text = it.name,
-                        color = Color.White,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .background(MaterialTheme.colors.secondary)
-                            .padding(5.dp)
-                    )
-                }
-            }
-        }
-    }
+    Text(
+        text = tagEntities.map { x->x.name }.joinToString(separator = " | "),
+        fontWeight = FontWeight.Medium,
+        color = MaterialTheme.colors.primary
+    )
+
 }
