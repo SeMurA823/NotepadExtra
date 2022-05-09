@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,9 +20,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.notepadextra.R
+import com.example.notepadextra.di.ServiceLocator
+import com.example.notepadextra.entities.TagEntity
+import java.util.*
 
 @Composable
-fun CreateTagForm(onClose: ()->Unit) {
+fun CreateTagForm(onClose: () -> Unit) {
 
     var tag by remember {
         mutableStateOf(TextFieldValue(""))
@@ -32,7 +38,7 @@ fun CreateTagForm(onClose: ()->Unit) {
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colors.background)
             .padding(5.dp)
-        ) {
+    ) {
         Text(
             text = stringResource(id = R.string.create_tag),
             fontSize = 20.sp,
@@ -42,14 +48,22 @@ fun CreateTagForm(onClose: ()->Unit) {
         )
         OutlinedTextField(
             value = tag,
-            onValueChange = {tag = it},
-            label = { Text(text = "Название", color = MaterialTheme.colors.secondary)},
-            placeholder = { Text(text = "", color = MaterialTheme.colors.secondary)},
+            onValueChange = { tag = it },
+            label = { Text(text = "Название", color = MaterialTheme.colors.secondary) },
+            placeholder = { Text(text = "", color = MaterialTheme.colors.secondary) },
             modifier = Modifier.padding(5.dp),
-            textStyle = TextStyle(color = MaterialTheme.colors.secondary, fontWeight = FontWeight.Medium)
+            textStyle = TextStyle(
+                color = MaterialTheme.colors.secondary,
+                fontWeight = FontWeight.Medium
+            )
         )
         Button(
-            onClick = { onClose() },
+            onClick = {
+                ServiceLocator.getInstance()
+                    .tagDAO()
+                    .insert(TagEntity(UUID.randomUUID(), tag.text))
+                onClose()
+            },
             modifier = Modifier.padding(5.dp)
         ) {
             Text(text = stringResource(id = R.string.btn_done))

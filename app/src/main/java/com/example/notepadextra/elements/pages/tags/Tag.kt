@@ -16,17 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.notepadextra.entities.TagEntity
 
 @Composable
-fun Tag(tagEntity: TagEntity) {
-
-    var isEdit by remember {
-        mutableStateOf(false)
-    }
+fun Tag(tagEntity: TagEntity, onClick: (TagEntity)->Unit, color: Color = MaterialTheme.colors.secondary) {
 
     Surface(modifier = Modifier.padding(5.dp), color = Color.Transparent) {
         Surface(
@@ -37,21 +34,18 @@ fun Tag(tagEntity: TagEntity) {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .background(MaterialTheme.colors.secondary)
+                    .background(color)
                     .padding(5.dp)
             ) {
-                if (isEdit)
-                    Dialog(onDismissRequest = { isEdit = false }, content = {
-                        EditTagForm(value = tagEntity.name, onClose = { isEdit = false })
-                    })
                 ClickableText(
                     text = AnnotatedString(tagEntity.name),
                     style = TextStyle(
                         color = Color.White,
                         fontSize = 20.sp,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
+                        textAlign = TextAlign.Center
                     ),
-                    onClick = {isEdit = true}
+                    onClick = {onClick(tagEntity)}
                 )
             }
         }
