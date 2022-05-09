@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NotepadExtra</string>
+    <string name="tags_tab_name">Теги</string>
+    <string name="notes_tab_name">Заметки</string>
+    <string name="create_tag">Создание тега</string>
+    <string name="btn_done">Готово</string>
+    <string name="btn_delete">Удалить</string>
+    <string name="edit_tag">Редактирование тега</string>
+</resources>
