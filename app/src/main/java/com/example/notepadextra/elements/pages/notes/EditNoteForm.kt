@@ -48,8 +48,8 @@ fun EditNoteForm(noteEntity: NoteEntity, onClose: () -> Unit) {
     val datePickerDialog = DatePickerDialog(
         LocalContext.current,
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
-            date = LocalDate.of(mYear, mMonth, mDayOfMonth)
-        }, date.year, date.monthValue, date.dayOfMonth
+            date = LocalDate.of(mYear, mMonth + 1, mDayOfMonth)
+        }, date.year, date.monthValue - 1, date.dayOfMonth
     )
 
     Column(
